@@ -1,7 +1,9 @@
 package com.khystudent.trd_totalyrandomdungeon;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,14 +26,14 @@ public class CombatActivity extends AppCompatActivity {
         enemyHpBar = findViewById(R.id.enemy_hp);
         attackBtn = findViewById(R.id.attack_btn);
 
-        Enemy enemy = new Enemy(RandomNumberGenerator.createRandomStats(100,200), 5,1);
+        Enemy enemy = new Enemy(RandomNumberGenerator.createRandomStats(100, 200), 5, 1);
         updateBars(enemy);
 
-       playerTurn(enemy);
+        playerTurn(enemy);
     }
 
-    protected void enemyTurn(Enemy enemy){
-        if(enemy.getEnemyHealthPoints() > 0){
+    protected void enemyTurn(Enemy enemy) {
+        if (enemy.getEnemyHealthPoints() > 0) {
 
             int dmg = RandomNumberGenerator.createRandomDamage(enemy.getEnemyMinAttack(), enemy.getEnemyMaxAttack());
             Player.playerHealthPoints -= dmg;
@@ -39,15 +41,26 @@ public class CombatActivity extends AppCompatActivity {
             updateBars(enemy);
             playerTurn(enemy);
 
-        }else{
+        } else {
 
-            Toast.makeText(CombatActivity.this, "You won!!", Toast.LENGTH_SHORT).show();
+            new AlertDialog.Builder(CombatActivity.this)
+                    .setTitle("You Won!!")
+                    .setMessage("Good job Hero!")
+
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            finish();
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
         }
     }
 
-    protected void playerTurn(Enemy enemy){
+    protected void playerTurn(Enemy enemy) {
 
-        if(Player.playerHealthPoints > 0){
+        if (Player.playerHealthPoints > 0) {
 
             attackBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -61,14 +74,27 @@ public class CombatActivity extends AppCompatActivity {
                 }
             });
 
-        }else{
+        } else {
 
-            Toast.makeText(CombatActivity.this, "You died", Toast.LENGTH_SHORT).show();
+            new AlertDialog.Builder(CombatActivity.this)
+                    .setTitle("You Died!")
+                    .setMessage("you failed in your duty!!")
+
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            finish();
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+
+
         }
 
     }
 
-    protected void updateBars(Enemy enemy){
+    protected void updateBars(Enemy enemy) {
 
         playerHpBar.setText(String.valueOf(Player.playerHealthPoints));
         enemyHpBar.setText(String.valueOf(enemy.getEnemyHealthPoints()));
