@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +15,9 @@ public class CombatActivity extends AppCompatActivity {
 
     TextView playerHpBar;
     TextView enemyHpBar;
+    TextView enemyName;
+
+    ImageView enemyPortrait;
 
     Button attackBtn;
 
@@ -25,9 +29,15 @@ public class CombatActivity extends AppCompatActivity {
         playerHpBar = findViewById(R.id.player_hp);
         enemyHpBar = findViewById(R.id.enemy_hp);
         attackBtn = findViewById(R.id.attack_btn);
+        enemyPortrait = findViewById(R.id.enemy_view);
+        enemyName = findViewById(R.id.enemy_title);
+
 
         Enemy enemy = new Enemy(RandomNumberGenerator.createRandomStats(100, 200), 5, 1);
         updateBars(enemy);
+        enemyPortrait.setImageResource(RandomNumberGenerator.randomEnemyPortrait());
+        enemyName.setText(RandomNumberGenerator.randomEnemyName(this));
+
 
         playerTurn(enemy);
     }

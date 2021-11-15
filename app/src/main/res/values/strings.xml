@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">TRD-Totaly Random Dungeon</string>
     <string name="ok">Ok</string>
+    <string name="enemy_name_1">" goblin"</string>
+    <string name="enemy_name_2">" troll"</string>
+    <string name="enemy_name_3">" dragon"</string>
+    <string name="enemy_forname_1">a wimpy</string>
+    <string name="enemy_forname_2">a giant</string>
+    <string name="enemy_forname_3">a fearful</string>
 </resources>
